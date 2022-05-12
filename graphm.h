@@ -39,3 +39,5 @@ class GraphM
         void findData(int start, int end) const;
 
 };
+
+#include "graphm.cpp"

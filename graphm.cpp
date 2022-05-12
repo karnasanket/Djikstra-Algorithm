@@ -138,3 +138,88 @@ int GraphM::findNext(TableType other[])
     }
     return next;
 }
+
+void GraphM::findPath(int start, int end) const
+{
+    if(T[start][end].dist == INT_MAX)
+    {
+        return;
+    }
+    else if(start == end)
+    {
+        cout << end << " ";
+        return;
+    }
+    else 
+    {
+        int path = end;
+        findPath(start, end = T[start][end].path);
+        cout << path << " ";
+    }
+}
+
+void GraphM::findData(int start, int end) const
+{
+    if(T[start][end].dist == INT_MAX)
+    {
+        return;
+    }
+    else if(start == end)
+    {
+        cout << data[end];
+        return;
+    }
+    else 
+    {
+        int temp = end;
+        findData(start, end = T[start][end].path);
+        cout << data[temp] << endl << endl;
+    }
+}
+
+void GraphM::displayAll() const
+{
+    cout << "Description" << setw(20) << "From Node" << setw(12) << "To Node";
+    cout << setw(14) << "Dijkstra's" << setw(8) << "Path" << endl;
+
+    for(int i =1; i <=  size; i++)
+    {
+        cout << this->data[i] << endl;
+
+        for(int j = 1; j<= size; j++)
+        {
+            if(T[i][j].dist > 0 && T[i][j].dist < INT_MAX)
+            {
+                cout << setw(27) << i << setw(12) << j;
+                cout << setw(12) << T[i][j].dist << setw(10);
+                findPath(i,j);
+                cout << endl;
+            }
+            else if (i != j)
+            {
+                cout << setw(27) << i << setw(12) << j;
+                cout << setw(12) << "----" << endl;
+            }
+        }
+    }
+}
+
+void GraphM::display(int start, int end) const{
+    if((start > size || start < 1) || (end > size || end < 1))
+    {
+        cout << setw(7) << start << setw(9) << end << setw(11) << "----" << endl;
+    }
+    else if(T[start][end].dist != INT_MAX)
+    {
+        cout << setw(7) << start << setw(9) << end << setw(11) << T[start][end].dist << setw(15);
+        
+        findPath(start, end);
+        cout << endl;
+        findData(start, end);
+    }
+    else 
+    {
+        cout << setw(7) << start << setw(9) << end << setw(11) << "----" << endl;
+    }
+    cout << endl;
+}
