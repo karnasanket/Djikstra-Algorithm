@@ -56,4 +56,3 @@ class GraphM
 
 };
 
-#include "graphm.cpp"
